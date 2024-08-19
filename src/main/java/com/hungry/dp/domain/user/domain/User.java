@@ -51,4 +51,8 @@ public class User {
         this.job = Job.valueOf(job);
         this.grade = Grade.NEWBIE;
     }
+
+    public void changeGrade(Grade newGrade) {
+        this.grade = newGrade;
+    }
 }

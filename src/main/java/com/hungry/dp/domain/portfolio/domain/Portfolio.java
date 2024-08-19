@@ -4,7 +4,6 @@ import com.hungry.dp.common.domain.BaseEntity;
 import com.hungry.dp.domain.activity.domain.Activity;
 import com.hungry.dp.domain.user.domain.User;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -51,4 +50,5 @@ public class Portfolio extends BaseEntity {
     public void addFrameworks(List<Framework> frameworks) {
         this.frameworks.addAll(frameworks);
     }
+
 }

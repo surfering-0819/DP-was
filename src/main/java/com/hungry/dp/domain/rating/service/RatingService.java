@@ -5,13 +5,12 @@ import com.hungry.dp.common.response.type.ErrorType;
 import com.hungry.dp.domain.portfolio.domain.Language;
 import com.hungry.dp.domain.portfolio.domain.Portfolio;
 import com.hungry.dp.domain.portfolio.repository.PortfolioRepository;
-import com.hungry.dp.domain.rating.dto.RatingRes;
 import com.hungry.dp.domain.user.domain.Grade;
+import com.hungry.dp.domain.user.domain.User;
+import com.hungry.dp.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -19,13 +18,13 @@ import java.util.UUID;
 public class RatingService {
 
     private final PortfolioRepository portfolioRepository;
+    private final UserService userService;
 
-    public RatingRes getCalculationResult(UUID portfolioId) {
-        Portfolio portfolio = portfolioRepository.findById(portfolioId).orElseThrow(() -> new CustomException(ErrorType.POST_NOT_FOUND));
-
+    public void getCalculationResult(Portfolio portfolio, String userId) {
         // 기존 등급
         Grade prevGrade = portfolio.getUser().getGrade();
-
+        User user = userService.findById(userId)
+                .orElseThrow(()->new CustomException(ErrorType.USER_NOT_FOUND));
         // 새로운 가중치 계산
         int weight = portfolio.getLanguages().stream()
                 .map(Language::getWeight) // 각 Language 객체의 weight 값을 가져옴
@@ -33,9 +32,10 @@ public class RatingService {
 
         Grade newGrade = measureGrade(weight);
 
-        if (prevGrade.getCutline() <= newGrade.getCutline())
-            return RatingRes.toDto(weight, prevGrade, false);
-        return RatingRes.toDto(weight, newGrade, true);
+        if (prevGrade.getCutline() > newGrade.getCutline()) {
+            user.changeGrade(newGrade);
+        }
+        user.changeGrade(newGrade);
     }
 
     private Grade measureGrade(int weight) {

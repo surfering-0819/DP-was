@@ -1,7 +1,6 @@
 package com.hungry.dp.domain.user.service;
 
 import com.hungry.dp.common.encode.PasswordUtil;
-import com.hungry.dp.domain.portfolio.repository.PortfolioRepository;
 import com.hungry.dp.domain.portfolio.service.PortfolioService;
 import com.hungry.dp.domain.user.repository.UserRepository;
 import com.hungry.dp.domain.user.domain.User;
@@ -35,5 +34,9 @@ public class UserService {
 
     public Optional<User> findByIdentify(String identify) {
         return userRepository.findByIdentify(identify);
+    }
+
+    public Optional<User> findById(String userId) {
+        return userRepository.findById(userId);
     }
 }
