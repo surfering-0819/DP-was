@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: dp
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        default_batch_fetch_size: 100
+cookie:
+  expiration: 86400000
