@@ -23,16 +23,24 @@ public class User {
     @Column(unique = true)
     private String password;
 
+    @NotNull
     private String school;
 
     @Enumerated(EnumType.STRING)
+    @NotNull
     private Job job;
 
+    @Enumerated(EnumType.STRING)
+    @NotNull
+    private Grade grade;
+
+    private int weight;
     @Builder
-    protected User (String identify, String password, String school, String job){
+    protected User(String identify, String password, String school, String job){
         this.identify = identify;
         this.password = password;
         this.school = school;
         this.job = Job.valueOf(job);
+        this.grade = Grade.NEWBIE;
     }
 }
