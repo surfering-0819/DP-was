@@ -5,6 +5,6 @@ import com.hungry.dp.domain.portfolio.domain.Language;
 import java.util.List;
 
 public record LanguageReq(
-        Language language
+        List<Language> languages
 ){
 }

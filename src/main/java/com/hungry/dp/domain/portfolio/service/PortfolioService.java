@@ -9,6 +9,8 @@ import com.hungry.dp.domain.portfolio.dto.request.FrameworkReq;
 import com.hungry.dp.domain.portfolio.dto.request.LanguageReq;
 import com.hungry.dp.domain.portfolio.dto.response.PortfolioRes;
 import com.hungry.dp.domain.portfolio.repository.PortfolioRepository;
+import com.hungry.dp.domain.project.domain.Project;
+import com.hungry.dp.domain.project.repository.ProjectRepository;
 import com.hungry.dp.domain.rating.service.RatingService;
 import com.hungry.dp.domain.user.domain.User;
 import com.hungry.dp.domain.user.repository.UserRepository;
@@ -21,7 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class PortfolioService {
     private final PortfolioRepository portfolioRepository;
     private final RatingService ratingService;
-
+    private final ProjectRepository projectRepository;
     @Transactional
     public void save(User user) {
         Portfolio portfolio = Portfolio.from(user);
@@ -32,7 +34,7 @@ public class PortfolioService {
     public void uploadLanguage(LanguageReq languageReq, String userId) {
         Portfolio portfolio = portfolioRepository.findByUserId(userId)
                 .orElseThrow(()-> new CustomException(ErrorType.PORTFOLIO_NOT_FOUND));
-        portfolio.addLanguages(languageReq.language());
+        portfolio.addLanguages(languageReq.languages());
         ratingService.getCalculationResult(portfolio, userId, "Language");
     }
 
@@ -40,26 +42,23 @@ public class PortfolioService {
     public void uploadFramework(FrameworkReq frameworkReq, String userId) {
         Portfolio portfolio = portfolioRepository.findByUserId(userId)
                 .orElseThrow(()-> new CustomException(ErrorType.PORTFOLIO_NOT_FOUND));
-        portfolio.addFrameworks(frameworkReq.framework());
+        portfolio.addFrameworks(frameworkReq.frameworks());
         ratingService.getCalculationResult(portfolio, userId, "Framework");
     }
 
-    @Transactional
     public void uploadActivity(ActivityReq activityReq, String userId) {
         Portfolio portfolio = portfolioRepository.findByUserId(userId)
                 .orElseThrow(()-> new CustomException(ErrorType.PORTFOLIO_NOT_FOUND));
-        portfolio.addActivity(activityReq.activity());
+        portfolio.addActivity(activityReq.activities());
         ratingService.getCalculationResult(portfolio, userId, "Activity");
     }
-
-    @Transactional
     public void uploadProject(ProjectReq projectReq, String userId) {
         Portfolio portfolio = portfolioRepository.findByUserId(userId)
                 .orElseThrow(()-> new CustomException(ErrorType.PORTFOLIO_NOT_FOUND));
-        portfolio.addProject(projectReq.projects());
-        ratingService.getCalculationResult(portfolio, userId, "Project");
+        Project project = ProjectReq.toEntity(projectReq);
+        projectRepository.save(project);
+        portfolio.addProject(project);
     }
-
     public PortfolioRes get(String userId) {
         Portfolio portfolio = portfolioRepository.findByUserId(userId)
                 .orElseThrow(()-> new CustomException(ErrorType.USER_NOT_FOUND));

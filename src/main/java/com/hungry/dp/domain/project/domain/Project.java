@@ -4,6 +4,7 @@ import com.hungry.dp.domain.portfolio.domain.Portfolio;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -23,4 +24,10 @@ public class Project {
     private Portfolio portfolio;
 
     private String content;
+
+    @Builder
+    protected Project(String description, String content){
+        this.description = description;
+        this.content = content;
+    }
 }
