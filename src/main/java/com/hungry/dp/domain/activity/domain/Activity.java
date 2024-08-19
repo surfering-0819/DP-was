@@ -5,6 +5,7 @@ import com.hungry.dp.domain.project.domain.Project;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -32,7 +33,8 @@ public class Activity {
     private LocalDateTime participatedAt;
 
     @NotNull
-    private boolean is_award;
+    @Column(name = "is_award")
+    private boolean isAward;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "project_id")
@@ -41,4 +43,13 @@ public class Activity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "portfolio_id")
     private Portfolio portfolio;
+
+    @Builder
+    protected Activity(String title, String organizer, String content, LocalDateTime participatedAt, boolean isAward){
+        this.title = title;
+        this.organizer = organizer;
+        this.content = content;
+        this.participatedAt = participatedAt;
+        this.isAward = isAward;
+    }
 }

@@ -54,8 +54,8 @@ public class Portfolio extends BaseEntity {
         this.frameworks.addAll(frameworks);
     }
 
-    public void addActivity(List<Activity> activities) {
-        this.activities.addAll(activities);
+    public void addActivity(Activity activity) {
+        this.activities.add(activity);
     }
 
     public void addProject(Project project) {
