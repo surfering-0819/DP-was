@@ -6,6 +6,7 @@ import com.hungry.dp.domain.user.domain.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -33,4 +34,21 @@ public class Portfolio extends BaseEntity {
 
     @OneToMany(mappedBy = "portfolio")
     private List<Activity> activities = new ArrayList<>();
+
+    @Builder
+    protected Portfolio(User user){
+        this.user = user;
+    }
+
+    public static Portfolio from(User user){
+        return Portfolio.builder().user(user).build();
+    }
+
+    public void addLanguages(List<Language> languages) {
+        this.languages.addAll(languages);
+    }
+
+    public void addFrameworks(List<Framework> frameworks) {
+        this.frameworks.addAll(frameworks);
+    }
 }

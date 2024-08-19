@@ -7,8 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CookieUtil {
-    @Value("${cookie.expiration}")
-    private static int EXPIRATION;
+    private static final int EXPIRATION = 86400000;
 
     //Rtk를 쿠키에 추가한다.
     public static ResponseCookie addRtkCookie(String key, String value) {

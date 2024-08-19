@@ -1,6 +1,8 @@
 package com.hungry.dp.domain.user.service;
 
 import com.hungry.dp.common.encode.PasswordUtil;
+import com.hungry.dp.domain.portfolio.repository.PortfolioRepository;
+import com.hungry.dp.domain.portfolio.service.PortfolioService;
 import com.hungry.dp.domain.user.repository.UserRepository;
 import com.hungry.dp.domain.user.domain.User;
 import com.hungry.dp.domain.user.dto.request.SignUpReq;
@@ -16,12 +18,13 @@ import java.util.Optional;
 @Slf4j
 public class UserService {
     private final UserRepository userRepository;
-
+    private final PortfolioService portfolioService;
     @Transactional
     public void signup(SignUpReq signUpReq) {
         log.info("회원가입 실행");
         String password = PasswordUtil.hashPassword(signUpReq.password());
         User user = SignUpReq.fromEntity(signUpReq, password);
+        portfolioService.save(user);
         this.save(user);
     }
 

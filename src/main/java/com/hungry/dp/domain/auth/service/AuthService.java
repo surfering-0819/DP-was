@@ -18,7 +18,7 @@ public class AuthService {
     @Transactional(readOnly = true)
     public String login(LoginReq loginReq) {
         User user = this.validateUser(loginReq);
-        return user.getIdentify();
+        return user.getId();
     }
 
     private User validateUser(LoginReq loginReq) {
