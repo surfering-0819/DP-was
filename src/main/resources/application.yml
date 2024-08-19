@@ -1,4 +1,12 @@
 spring:
+  profiles:
+    group:
+      "prodEnv": "common, prod"
+---
+spring:
+  config:
+    activate:
+      on-profile: "common"
   application:
     name: dp
   datasource:
