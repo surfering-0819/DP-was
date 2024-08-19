@@ -14,6 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -21,23 +23,26 @@ public class RatingService {
 
     private final UserRepository userRepository;
 
-    @Transactional
-    public void getCalculationResult(Portfolio portfolio, String userId, String type) {
-        // 기존 등급
+    public void CalculateLanguageWeight(Portfolio portfolio, List<Language> languages, String userId) {
         Grade prevGrade = portfolio.getUser().getGrade();
-        User user = userRepository.findById(userId)
-                .orElseThrow(()->new CustomException(ErrorType.USER_NOT_FOUND));
-        // 새로운 가중치 계산
-        int weight = portfolio.getLanguages().stream()
-                .map(Language::getWeight) // 각 Language 객체의 weight 값을 가져옴
-                .reduce(0, Integer::sum); // weight 값을 합산
+        int sum = languages.stream()
+                    .map(Language::getWeight) // 각 Language 객체의 weight 값을 가져옴
+                    .reduce(0, Integer::sum);
+        getTotalWeight(userId, sum, prevGrade);
+    }
 
-        Grade newGrade = measureGrade(weight);
+    public void getTotalWeight(String userId, int sum, Grade prevGrade){
+        User user = userRepository.findById(userId).orElseThrow(()-> new CustomException(ErrorType.USER_NOT_FOUND));
+        user.changeWeight(sum);
 
-        if (prevGrade.getCutline() > newGrade.getCutline()) {
+        Grade newGrade = measureGrade(user.getWeight());
+
+        if (prevGrade.getCutline() >= newGrade.getCutline()) {
             user.changeGrade(newGrade);
+            return RatingRes.from(newGrade, false);
         }
         user.changeGrade(newGrade);
+        return RatingRes.from(newGrade, true);
     }
 
     private Grade measureGrade(int weight) {

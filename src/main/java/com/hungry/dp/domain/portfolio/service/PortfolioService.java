@@ -37,7 +37,7 @@ public class PortfolioService {
         Portfolio portfolio = portfolioRepository.findByUserId(userId)
                 .orElseThrow(()-> new CustomException(ErrorType.PORTFOLIO_NOT_FOUND));
         portfolio.addLanguages(languageReq.languages());
-        ratingService.getCalculationResult(portfolio, userId, "Language");
+        ratingService.CalculateLanguageWeight(portfolio, languageReq.languages(), userId);
     }
 
     @Transactional

@@ -59,4 +59,8 @@ public class User {
     public void changeGrade(Grade newGrade) {
         this.grade = newGrade;
     }
+
+    public void changeWeight(int addWeight){
+        this.weight+=addWeight;
+    }
 }
