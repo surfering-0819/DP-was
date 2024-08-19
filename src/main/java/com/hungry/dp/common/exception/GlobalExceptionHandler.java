@@ -39,10 +39,10 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
     }
 
-    @ExceptionHandler(Exception.class)
-    protected ResponseEntity<?> customServerException(Exception ex) {
-        ErrorRes error = new ErrorRes(INTERNAL_SERVER_ERROR.getErrorCode(), INTERNAL_SERVER_ERROR.getStatus(), INTERNAL_SERVER_ERROR.getMessage());
-        log.error("Error occurred : [errorCode={}, status={}, message={}]", error.errorCode(), error.status(), error.message());
-        return ResponseEntity.status(error.status()).body(error);
-    }
+//    @ExceptionHandler(Exception.class)
+//    protected ResponseEntity<?> customServerException(Exception ex) {
+//        ErrorRes error = new ErrorRes(INTERNAL_SERVER_ERROR.getErrorCode(), INTERNAL_SERVER_ERROR.getStatus(), INTERNAL_SERVER_ERROR.getMessage());
+//        log.error("Error occurred : [errorCode={}, status={}, message={}]", error.errorCode(), error.status(), error.message());
+//        return ResponseEntity.status(error.status()).body(error);
+//    }
 }
