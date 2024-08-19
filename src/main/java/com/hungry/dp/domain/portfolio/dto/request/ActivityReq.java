@@ -2,6 +2,7 @@ package com.hungry.dp.domain.portfolio.dto.request;
 
 import com.hungry.dp.domain.activity.domain.Activity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public record ActivityReq(
@@ -10,7 +11,7 @@ public record ActivityReq(
 
         String content,
 
-        LocalDateTime participatedAt,
+        LocalDate participatedAt,
         boolean isAward
 ) {
     public static Activity toEntity(ActivityReq activityReq){

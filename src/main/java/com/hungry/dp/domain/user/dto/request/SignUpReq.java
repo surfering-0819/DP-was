@@ -1,5 +1,6 @@
 package com.hungry.dp.domain.user.dto.request;
 
+import com.hungry.dp.domain.user.domain.Grade;
 import com.hungry.dp.domain.user.domain.User;
 import jakarta.validation.constraints.NotBlank;
 
@@ -23,6 +24,7 @@ public record SignUpReq(
                 .school(signUpReq.school())
                 .job(signUpReq.job())
                 .name(signUpReq.name())
+                .grade(Grade.NEWBIE)
                 .build();
     }
 }

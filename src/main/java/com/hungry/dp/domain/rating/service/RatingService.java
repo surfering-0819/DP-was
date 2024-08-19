@@ -46,7 +46,7 @@ public class RatingService {
     public RatingRes CalculateActivityWeight(Portfolio portfolio, Activity activity, String userId) {
         Grade prevGrade = portfolio.getUser().getGrade();
         int sum = 0;
-        if (activity.isAward()) sum += 3;
+        if (activity.isAward()) sum += 2;
         else sum += 1;
         return getTotalWeight(userId, sum, prevGrade);
     }
@@ -73,9 +73,9 @@ public class RatingService {
     }
 
     private Grade measureGrade(int weight) {
-        if (weight < Grade.NEWBIE.getCutline()) return Grade.NEWBIE;
-        if (weight < Grade.JUNIOR.getCutline()) return Grade.JUNIOR;
-        if (weight < Grade.SENIOR.getCutline()) return Grade.SENIOR;
+        if (weight <= Grade.NEWBIE.getCutline()) return Grade.NEWBIE;
+        if (weight <= Grade.JUNIOR.getCutline()) return Grade.JUNIOR;
+        if (weight <= Grade.SENIOR.getCutline()) return Grade.SENIOR;
         return Grade.PROFESSOR;
     }
 }

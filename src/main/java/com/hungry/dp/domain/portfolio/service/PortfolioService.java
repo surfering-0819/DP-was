@@ -64,7 +64,7 @@ public class PortfolioService {
                 .orElseThrow(()-> new CustomException(ErrorType.PORTFOLIO_NOT_FOUND));
         Project project = ProjectReq.toEntity(projectReq);
         projectRepository.save(project);
-        portfolio.addProject(project);
+        project.addPortfolio(portfolio);
         return ratingService.CalculateProjectWeight(portfolio,  userId);
     }
     @Transactional(readOnly = true)

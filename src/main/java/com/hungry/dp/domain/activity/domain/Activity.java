@@ -9,6 +9,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -30,7 +31,7 @@ public class Activity {
 
     @NotNull
     @Column(name = "participated_at")
-    private LocalDateTime participatedAt;
+    private LocalDate participatedAt;
 
     @NotNull
     @Column(name = "is_award")
@@ -45,7 +46,7 @@ public class Activity {
     private Portfolio portfolio;
 
     @Builder
-    protected Activity(String title, String organizer, String content, LocalDateTime participatedAt, boolean isAward){
+    protected Activity(String title, String organizer, String content, LocalDate participatedAt, boolean isAward){
         this.title = title;
         this.organizer = organizer;
         this.content = content;

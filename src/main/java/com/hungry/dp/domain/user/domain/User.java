@@ -47,7 +47,7 @@ public class User {
     private List<Portfolio> portfolios = new ArrayList<>();
 
     @Builder
-    protected User(String identify, String password, String school, String name, String job){
+    protected User(String identify, String password, String school, String name, String job, Grade grade){
         this.identify = identify;
         this.password = password;
         this.school = school;

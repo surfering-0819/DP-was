@@ -59,7 +59,4 @@ public class Portfolio extends BaseEntity {
         this.activities.add(activity);
     }
 
-    public void addProject(Project project) {
-        this.projects.add(project);
-    }
 }

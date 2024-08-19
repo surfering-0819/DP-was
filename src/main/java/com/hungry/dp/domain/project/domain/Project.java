@@ -30,4 +30,9 @@ public class Project {
         this.description = description;
         this.content = content;
     }
+
+    public void addPortfolio(Portfolio portfolio) {
+        this.portfolio = portfolio;
+        this.portfolio.getProjects().add(this);
+    }
 }
