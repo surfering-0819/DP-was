@@ -12,12 +12,12 @@ public enum ErrorType {
 
     // 해당 값을 찾을 수 없을 때(404오류는 004)
     USER_NOT_FOUND("USER-004", 404, "존재하지 않는 회원입니다."),
-    POST_NOT_FOUND("POST-004", 404, "존재하지 않는 게시글입니다."),
-    COMMENT_NOT_FOUND("COMMENT-004", 404, "존재하지 않는 댓글입니다."),
+    PORTFOLIO_NOT_FOUND("PORTFOLIO-004", 404, "존재하지 않는 포트폴리오입니다."),
+    PROJECT_NOT_FOUND("PROJECT-004", 404, "존재하지 않는 프로젝트입니다."),
 
     INVALID_COMMENT_WRITER("COMMENT-001", 401, "댓글 작성자가 아닙니다."),
     INVALID_POST_WRITER("POST-001", 401, "게시글 작성자가 아닙니다."),
-    INVALID_POST_PAGE("COMMENT-002", 401, "댓글을 작성한 게시물 페이지가 아닙니다."),
+
     // 서버 에러
     INTERNAL_SERVER_ERROR("SERVER-001", 500, "서버 에러 발생"),
     INVALID_ARGUMENT("VALID-001", 400, "데이터 전달 오류 발생");
