@@ -1,4 +1,4 @@
-package com.hungry.dp.domain.user;
+package com.hungry.dp.domain.user.repository;
 
 import com.hungry.dp.domain.user.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;

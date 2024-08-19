@@ -1,7 +1,7 @@
 package com.hungry.dp.domain.user.service;
 
 import com.hungry.dp.common.encode.PasswordUtil;
-import com.hungry.dp.domain.user.UserRepository;
+import com.hungry.dp.domain.user.repository.UserRepository;
 import com.hungry.dp.domain.user.domain.User;
 import com.hungry.dp.domain.user.dto.request.SignUpReq;
 import jakarta.transaction.Transactional;

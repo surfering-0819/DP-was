@@ -24,6 +24,9 @@ public class Activity {
     private String organizer;
 
     @NotNull
+    private String content;
+
+    @NotNull
     @Column(name = "participated_at")
     private LocalDateTime participatedAt;
 
