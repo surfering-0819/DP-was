@@ -2,6 +2,7 @@ package com.hungry.dp.domain.portfolio.domain;
 
 import com.hungry.dp.common.domain.BaseEntity;
 import com.hungry.dp.domain.activity.domain.Activity;
+import com.hungry.dp.domain.project.domain.Project;
 import com.hungry.dp.domain.user.domain.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -49,6 +50,10 @@ public class Portfolio extends BaseEntity {
 
     public void addFrameworks(List<Framework> frameworks) {
         this.frameworks.addAll(frameworks);
+    }
+
+    public void addActivity(List<Activity> activities) {
+        this.activities.addAll(activities);
     }
 
 }

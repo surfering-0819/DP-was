@@ -20,7 +20,7 @@ public class RatingService {
     private final PortfolioRepository portfolioRepository;
     private final UserService userService;
 
-    public void getCalculationResult(Portfolio portfolio, String userId) {
+    public void getCalculationResult(Portfolio portfolio, String userId, String type) {
         // 기존 등급
         Grade prevGrade = portfolio.getUser().getGrade();
         User user = userService.findById(userId)
