@@ -13,6 +13,7 @@ import com.hungry.dp.domain.portfolio.dto.response.PortfolioRes;
 import com.hungry.dp.domain.portfolio.repository.PortfolioRepository;
 import com.hungry.dp.domain.project.domain.Project;
 import com.hungry.dp.domain.project.repository.ProjectRepository;
+import com.hungry.dp.domain.rating.dto.response.RatingRes;
 import com.hungry.dp.domain.rating.service.RatingService;
 import com.hungry.dp.domain.user.domain.User;
 import lombok.RequiredArgsConstructor;
@@ -33,37 +34,38 @@ public class PortfolioService {
     }
 
     @Transactional
-    public void uploadLanguage(LanguageReq languageReq, String userId) {
+    public RatingRes uploadLanguage(LanguageReq languageReq, String userId) {
         Portfolio portfolio = portfolioRepository.findByUserId(userId)
                 .orElseThrow(()-> new CustomException(ErrorType.PORTFOLIO_NOT_FOUND));
         portfolio.addLanguages(languageReq.languages());
-        ratingService.CalculateLanguageWeight(portfolio, languageReq.languages(), userId);
+        return ratingService.CalculateLanguageWeight(portfolio, languageReq.languages(), userId);
     }
 
     @Transactional
-    public void uploadFramework(FrameworkReq frameworkReq, String userId) {
+    public RatingRes uploadFramework(FrameworkReq frameworkReq, String userId) {
         Portfolio portfolio = portfolioRepository.findByUserId(userId)
                 .orElseThrow(()-> new CustomException(ErrorType.PORTFOLIO_NOT_FOUND));
         portfolio.addFrameworks(frameworkReq.frameworks());
-        ratingService.getCalculationResult(portfolio, userId, "Framework");
+        return ratingService.CalculateFrameworkWeight(portfolio, frameworkReq.frameworks(), userId);
     }
 
     @Transactional
-    public void uploadActivity(ActivityReq activityReq, String userId) {
+    public RatingRes uploadActivity(ActivityReq activityReq, String userId) {
         Portfolio portfolio = portfolioRepository.findByUserId(userId)
                 .orElseThrow(()-> new CustomException(ErrorType.PORTFOLIO_NOT_FOUND));
         Activity activity = ActivityReq.toEntity(activityReq);
         activityRepository.save(activity);
         portfolio.addActivity(activity);
-        ratingService.getCalculationResult(portfolio, userId, "Activity");
+        return ratingService.CalculateActivityWeight(portfolio, activity, userId);
     }
     @Transactional
-    public void uploadProject(ProjectReq projectReq, String userId) {
+    public RatingRes uploadProject(ProjectReq projectReq, String userId) {
         Portfolio portfolio = portfolioRepository.findByUserId(userId)
                 .orElseThrow(()-> new CustomException(ErrorType.PORTFOLIO_NOT_FOUND));
         Project project = ProjectReq.toEntity(projectReq);
         projectRepository.save(project);
         portfolio.addProject(project);
+        return ratingService.CalculateProjectWeight(portfolio, project, userId);
     }
     @Transactional(readOnly = true)
     public PortfolioRes get(String userId) {

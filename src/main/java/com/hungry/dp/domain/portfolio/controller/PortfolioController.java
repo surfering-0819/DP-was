@@ -22,8 +22,7 @@ public class PortfolioController {
             @RequestBody LanguageReq languageReq,
             @CookieValue String userId
     ){
-        portfolioService.uploadLanguage(languageReq, userId);
-        return ResponseEntity.status(HttpStatus.CREATED).body(SuccessRes.from("언어 추가 완료"));
+        return ResponseEntity.status(HttpStatus.CREATED).body(portfolioService.uploadLanguage(languageReq, userId));
     }
 
     @PostMapping("/upload/framework")
@@ -31,8 +30,7 @@ public class PortfolioController {
             @RequestBody FrameworkReq frameworkReq,
             @CookieValue String userId
     ){
-        portfolioService.uploadFramework(frameworkReq, userId);
-        return ResponseEntity.status(HttpStatus.CREATED).body(SuccessRes.from("프레임워크 추가 완료"));
+        return ResponseEntity.status(HttpStatus.CREATED).body(portfolioService.uploadFramework(frameworkReq, userId));
     }
 
     @PostMapping("/upload/activity")
@@ -40,8 +38,7 @@ public class PortfolioController {
             @RequestBody ActivityReq activityReq,
             @CookieValue String userId
     ) {
-        portfolioService.uploadActivity(activityReq, userId);
-        return ResponseEntity.status(HttpStatus.CREATED).body(SuccessRes.from("대외활동 추가 완료"));
+        return ResponseEntity.status(HttpStatus.CREATED).body(portfolioService.uploadActivity(activityReq, userId));
     }
 
     @PostMapping("/upload/project")
@@ -49,8 +46,7 @@ public class PortfolioController {
             @RequestBody ProjectReq projectReq,
             @CookieValue String userId
     ) {
-        portfolioService.uploadProject(projectReq, userId);
-        return ResponseEntity.status(HttpStatus.CREATED).body(SuccessRes.from(("프로젝트 추가 완료")));
+        return ResponseEntity.status(HttpStatus.CREATED).body(portfolioService.uploadProject(projectReq, userId));
     }
 
     @GetMapping("")

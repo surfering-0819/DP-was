@@ -37,6 +37,7 @@ public class Portfolio extends BaseEntity {
 
     @OneToMany(mappedBy = "portfolio")
     private List<Project> projects = new ArrayList<>();
+
     @Builder
     protected Portfolio(User user){
         this.user = user;
