@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AuthController {
     private final AuthService authService;
-    private final CookieUtil cookieUtil;
     @PostMapping("/login")
     public ResponseEntity<?> login(@Valid @RequestBody LoginReq loginReq){
         String userId = authService.login(loginReq);

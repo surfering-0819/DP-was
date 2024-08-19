@@ -65,7 +65,7 @@ public class PortfolioService {
         Project project = ProjectReq.toEntity(projectReq);
         projectRepository.save(project);
         portfolio.addProject(project);
-        return ratingService.CalculateProjectWeight(portfolio, project, userId);
+        return ratingService.CalculateProjectWeight(portfolio,  userId);
     }
     @Transactional(readOnly = true)
     public PortfolioRes get(String userId) {
