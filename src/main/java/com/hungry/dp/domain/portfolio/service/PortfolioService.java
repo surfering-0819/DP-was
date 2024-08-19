@@ -32,7 +32,7 @@ public class PortfolioService {
     public void uploadLanguage(LanguageReq languageReq, String userId) {
         Portfolio portfolio = portfolioRepository.findByUserId(userId)
                 .orElseThrow(()-> new CustomException(ErrorType.PORTFOLIO_NOT_FOUND));
-        portfolio.addLanguages(languageReq.languages());
+        portfolio.addLanguages(languageReq.language());
         ratingService.getCalculationResult(portfolio, userId, "Language");
     }
 
@@ -40,21 +40,26 @@ public class PortfolioService {
     public void uploadFramework(FrameworkReq frameworkReq, String userId) {
         Portfolio portfolio = portfolioRepository.findByUserId(userId)
                 .orElseThrow(()-> new CustomException(ErrorType.PORTFOLIO_NOT_FOUND));
-        portfolio.addFrameworks(frameworkReq.frameworks());
+        portfolio.addFrameworks(frameworkReq.framework());
         ratingService.getCalculationResult(portfolio, userId, "Framework");
     }
 
+    @Transactional
     public void uploadActivity(ActivityReq activityReq, String userId) {
         Portfolio portfolio = portfolioRepository.findByUserId(userId)
                 .orElseThrow(()-> new CustomException(ErrorType.PORTFOLIO_NOT_FOUND));
-        portfolio.addActivity(activityReq.activities());
+        portfolio.addActivity(activityReq.activity());
         ratingService.getCalculationResult(portfolio, userId, "Activity");
     }
+
+    @Transactional
     public void uploadProject(ProjectReq projectReq, String userId) {
         Portfolio portfolio = portfolioRepository.findByUserId(userId)
                 .orElseThrow(()-> new CustomException(ErrorType.PORTFOLIO_NOT_FOUND));
-
+        portfolio.addProject(projectReq.projects());
+        ratingService.getCalculationResult(portfolio, userId, "Project");
     }
+
     public PortfolioRes get(String userId) {
         Portfolio portfolio = portfolioRepository.findByUserId(userId)
                 .orElseThrow(()-> new CustomException(ErrorType.USER_NOT_FOUND));

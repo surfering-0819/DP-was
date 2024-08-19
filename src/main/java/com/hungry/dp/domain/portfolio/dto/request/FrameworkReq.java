@@ -5,6 +5,6 @@ import com.hungry.dp.domain.portfolio.domain.Framework;
 import java.util.List;
 
 public record FrameworkReq (
-        List<Framework> frameworks
+        Framework framework
 ){
 }

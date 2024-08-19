@@ -5,6 +5,6 @@ import com.hungry.dp.domain.activity.domain.Activity;
 import java.util.List;
 
 public record ActivityReq(
-        List<Activity> activities
+        Activity activity
 ) {
 }

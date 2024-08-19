@@ -46,16 +46,19 @@ public class Portfolio extends BaseEntity {
         return Portfolio.builder().user(user).build();
     }
 
-    public void addLanguages(List<Language> languages) {
-        this.languages.addAll(languages);
+    public void addLanguages(Language language) {
+        this.languages.add(language);
     }
 
-    public void addFrameworks(List<Framework> frameworks) {
-        this.frameworks.addAll(frameworks);
+    public void addFrameworks(Framework framework) {
+        this.frameworks.add(framework);
     }
 
-    public void addActivity(List<Activity> activities) {
-        this.activities.addAll(activities);
+    public void addActivity(Activity activity) {
+        this.activities.add(activity);
     }
 
+    public void addProject(Project project) {
+        this.projects.add(project);
+    }
 }
