@@ -11,20 +11,19 @@ import com.hungry.dp.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class RatingService {
 
-    private final PortfolioRepository portfolioRepository;
-    private final UserService userService;
 
-    public void getCalculationResult(Portfolio portfolio, String userId) {
+    @Transactional
+    public void getCalculationResult(Portfolio portfolio, User user) {
         // 기존 등급
         Grade prevGrade = portfolio.getUser().getGrade();
-        User user = userService.findById(userId)
-                .orElseThrow(()->new CustomException(ErrorType.USER_NOT_FOUND));
+
         // 새로운 가중치 계산
         int weight = portfolio.getLanguages().stream()
                 .map(Language::getWeight) // 각 Language 객체의 weight 값을 가져옴

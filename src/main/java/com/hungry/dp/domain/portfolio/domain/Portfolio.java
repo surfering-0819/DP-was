@@ -2,6 +2,7 @@ package com.hungry.dp.domain.portfolio.domain;
 
 import com.hungry.dp.common.domain.BaseEntity;
 import com.hungry.dp.domain.activity.domain.Activity;
+import com.hungry.dp.domain.project.domain.Project;
 import com.hungry.dp.domain.user.domain.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -34,6 +35,8 @@ public class Portfolio extends BaseEntity {
     @OneToMany(mappedBy = "portfolio")
     private List<Activity> activities = new ArrayList<>();
 
+    @OneToMany(mappedBy = "portfolio")
+    private List<Project> projects = new ArrayList<>();
     @Builder
     protected Portfolio(User user){
         this.user = user;

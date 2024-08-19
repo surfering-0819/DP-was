@@ -1,9 +1,7 @@
 package com.hungry.dp.domain.project.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.hungry.dp.domain.portfolio.domain.Portfolio;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -19,6 +17,10 @@ public class Project {
 
     @NotNull
     private String description;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "portfolio_id")
+    private Portfolio portfolio;
 
     private String content;
 }

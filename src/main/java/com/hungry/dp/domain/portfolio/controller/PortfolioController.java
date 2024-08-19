@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/portfolio")
+@RequestMapping("/v1/portfolio")
 @RequiredArgsConstructor
 public class PortfolioController {
     private final PortfolioService portfolioService;
@@ -24,7 +24,7 @@ public class PortfolioController {
     }
 
     @PostMapping("/upload/framework")
-    public ResponseEntity<?> uploadLanguage(
+    public ResponseEntity<?> uploadFramework(
             @RequestBody FrameworkReq frameworkReq,
             @CookieValue String userId
     ){

@@ -1,5 +1,6 @@
 package com.hungry.dp.domain.activity.domain;
 
+import com.hungry.dp.domain.portfolio.domain.Portfolio;
 import com.hungry.dp.domain.project.domain.Project;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -36,4 +37,8 @@ public class Activity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "project_id")
     private Project project;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "portfolio_id")
+    private Portfolio portfolio;
 }
