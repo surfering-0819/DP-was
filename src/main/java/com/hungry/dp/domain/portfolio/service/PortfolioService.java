@@ -7,6 +7,7 @@ import com.hungry.dp.domain.portfolio.dto.request.ActivityReq;
 import com.hungry.dp.domain.portfolio.dto.request.ProjectReq;
 import com.hungry.dp.domain.portfolio.dto.request.FrameworkReq;
 import com.hungry.dp.domain.portfolio.dto.request.LanguageReq;
+import com.hungry.dp.domain.portfolio.dto.response.PortfolioRes;
 import com.hungry.dp.domain.portfolio.repository.PortfolioRepository;
 import com.hungry.dp.domain.rating.service.RatingService;
 import com.hungry.dp.domain.user.domain.User;
@@ -20,18 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class PortfolioService {
     private final PortfolioRepository portfolioRepository;
     private final RatingService ratingService;
-    private final UserRepository userRepository;
-
-
-//    public void uploadLanguage(LanguageReq languageReq, String userId) {
-//        Portfolio portfolio = portfolioRepository.findByUserId(userId)
-//                .orElseThrow(()-> new CustomException(ErrorType.PORTFOLIO_NOT_FOUND));
-//        User user = userRepository.findById(userId)
-//                .orElseThrow(()->new CustomException(ErrorType.USER_NOT_FOUND));
-//        portfolio.addLanguages(languageReq.languages());
-//        ratingService.getCalculationResult(portfolio, user);
-//    }
-
 
     @Transactional
     public void save(User user) {
@@ -39,34 +28,36 @@ public class PortfolioService {
         portfolioRepository.save(portfolio);
     }
 
-    private Portfolio getPortfolio(String userId) {
-        return portfolioRepository.findByUserId(userId)
-                .orElseThrow(()-> new CustomException(ErrorType.PORTFOLIO_NOT_FOUND));
-    }
-
     @Transactional
     public void uploadLanguage(LanguageReq languageReq, String userId) {
-        Portfolio portfolio = getPortfolio(userId);
+        Portfolio portfolio = portfolioRepository.findByUserId(userId)
+                .orElseThrow(()-> new CustomException(ErrorType.PORTFOLIO_NOT_FOUND));
         portfolio.addLanguages(languageReq.languages());
         ratingService.getCalculationResult(portfolio, userId, "Language");
     }
 
     @Transactional
     public void uploadFramework(FrameworkReq frameworkReq, String userId) {
-        Portfolio portfolio = getPortfolio(userId);
+        Portfolio portfolio = portfolioRepository.findByUserId(userId)
+                .orElseThrow(()-> new CustomException(ErrorType.PORTFOLIO_NOT_FOUND));
         portfolio.addFrameworks(frameworkReq.frameworks());
         ratingService.getCalculationResult(portfolio, userId, "Framework");
     }
 
     public void uploadActivity(ActivityReq activityReq, String userId) {
-        Portfolio portfolio = getPortfolio(userId);
+        Portfolio portfolio = portfolioRepository.findByUserId(userId)
+                .orElseThrow(()-> new CustomException(ErrorType.PORTFOLIO_NOT_FOUND));
         portfolio.addActivity(activityReq.activities());
         ratingService.getCalculationResult(portfolio, userId, "Activity");
     }
-
     public void uploadProject(ProjectReq projectReq, String userId) {
-        Portfolio portfolio = getPortfolio(userId);
+        Portfolio portfolio = portfolioRepository.findByUserId(userId)
+                .orElseThrow(()-> new CustomException(ErrorType.PORTFOLIO_NOT_FOUND));
 
     }
-
+    public PortfolioRes get(String userId) {
+        Portfolio portfolio = portfolioRepository.findByUserId(userId)
+                .orElseThrow(()-> new CustomException(ErrorType.USER_NOT_FOUND));
+        return PortfolioRes.fromEntity(portfolio);
+    }
 }

@@ -30,6 +30,9 @@ public class User {
     @NotNull
     private String school;
 
+    @NotNull
+    private String name;
+
     @Enumerated(EnumType.STRING)
     @NotNull
     private Job job;
@@ -44,10 +47,11 @@ public class User {
     private List<Portfolio> portfolios = new ArrayList<>();
 
     @Builder
-    protected User(String identify, String password, String school, String job){
+    protected User(String identify, String password, String school, String name, String job){
         this.identify = identify;
         this.password = password;
         this.school = school;
+        this.name = name;
         this.job = Job.valueOf(job);
         this.grade = Grade.NEWBIE;
     }

@@ -37,8 +37,4 @@ public class UserService {
         return userRepository.findByIdentify(identify);
     }
 
-    @Transactional(readOnly = true)
-    public Optional<User> findById(String userId) {
-        return userRepository.findById(userId);
-    }
 }

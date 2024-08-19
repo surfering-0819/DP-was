@@ -52,4 +52,11 @@ public class PortfolioController {
         portfolioService.uploadProject(projectReq, userId);
         return ResponseEntity.status(HttpStatus.CREATED).body(SuccessRes.from(("프로젝트 추가 완료")));
     }
+
+    @GetMapping("")
+    public ResponseEntity<?> getPortfolio(
+            @CookieValue String userId
+    ){
+        return ResponseEntity.ok(portfolioService.get(userId));
+    }
 }

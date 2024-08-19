@@ -11,7 +11,10 @@ public record SignUpReq(
         @NotBlank(message = "학교는 필수입력입니다.")
         String school,
         @NotBlank(message = "직종은 필수입력입니다.")
-        String job
+        String job,
+
+        @NotBlank(message = "이름은 필수입력입니다.")
+        String name
         ){
     public static User fromEntity(SignUpReq signUpReq, String password) {
         return User.builder()
@@ -19,6 +22,7 @@ public record SignUpReq(
                 .password(password)
                 .school(signUpReq.school())
                 .job(signUpReq.job())
+                .name(signUpReq.name())
                 .build();
     }
 }
