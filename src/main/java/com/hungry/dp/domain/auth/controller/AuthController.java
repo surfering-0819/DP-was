@@ -20,9 +20,9 @@ public class AuthController {
     private final CookieUtil cookieUtil;
     @PostMapping("/login")
     public ResponseEntity<?> login(@Valid @RequestBody LoginReq loginReq){
-        String identify = authService.login(loginReq);
+        String userId = authService.login(loginReq);
         return ResponseEntity.ok().header("Set-Cookie",
-                        CookieUtil.addRtkCookie("refreshToken", identify).toString())
+                        CookieUtil.addRtkCookie("userId", userId).toString())
                 .body(SuccessRes.from("로그인 성공"));
     }
 }
