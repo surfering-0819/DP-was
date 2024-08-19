@@ -21,6 +21,12 @@ public class Portfolio extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
+    @ElementCollection
+    private List<Language> languages = new ArrayList<>();
+
+    @ElementCollection
+    private List<Framework> frameworks = new ArrayList<>();
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
